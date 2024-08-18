@@ -7,7 +7,7 @@ from Ava import Jarvis as app
 from Ava.modules.no_sql.afk_db import add_afk, is_afk, remove_afk
 
 
-@app.on_cmd(["afk", "brb"])
+@app.on_cmd(["afk", "brb"], prefixes=["/", ".", "!"]))
 async def active_afk(_, message: Message):
     if message.sender_chat:
         return
