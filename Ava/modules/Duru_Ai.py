@@ -20,7 +20,7 @@ from lexica.constants import languageModels
 from httpx import AsyncClient
 
 # Ava as an Ai Assistant
-@app.on_message(filters.command(["va"], prefixes=["A"]))
+@app.on_message(filters.command(["uru"], prefixes=["D"]))
 async def chat_gpt(bot, message):
     try:
         await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
@@ -47,7 +47,7 @@ async def load_image(image_path: str, url: str) -> str:
                 return image_path
             return None
 
-@app.on_message(filters.command("upscale", prefixes="/"))
+@app.on_message(filters.command("upscale", prefixes=["/", ".", "!"]))
 async def upscale_image(client, message):
     chat_id = message.chat.id
     replied_message = message.reply_to_message
@@ -78,7 +78,7 @@ async def upscale_image(client, message):
     await aux_message.delete()
     await message.reply_document(document=downloaded_image)
 
-@app.on_message(filters.command("getdraw", prefixes="/"))
+@app.on_message(filters.command("draw", prefixes=["/", ".", "!"])
 async def draw_image(client, message):
     chat_id = message.chat.id
     user_id = message.sender_chat.id if message.sender_chat else message.from_user.id
@@ -115,7 +115,7 @@ async def draw_image(client, message):
     await message.reply_photo(photo=downloaded_image, caption=query)
 
 # Image searching
-@app.on_message(filters.command(["img", "image"], prefixes=["/", "!"]))
+@app.on_message(filters.command(["img", "image"], prefixes=["/", ".", "!"]))
 async def google_img_search(client: Client, message: Message):
     chat_id = message.chat.id
 
@@ -129,7 +129,7 @@ async def google_img_search(client: Client, message: Message):
         lim = int(lim[0].replace("lim=", ""))
         query = query.replace(f"lim={lim}", "")
     except IndexError:
-        lim = 5  # Default limit to 5 images
+        lim = 10  # Default limit to 5 images
 
     download_dir = "downloads"
 
@@ -142,12 +142,12 @@ async def google_img_search(client: Client, message: Message):
     except Exception as e:
         return await message.reply(f"Error in downloading images: {e}")
 
-    msg = await message.reply("`Ava Scraping images...`")
+    msg = await message.reply("`=> Dᴜʀᴜ Scraping images...`")
 
     count = 0
     for img in lst:
         count += 1
-        await msg.edit(f"`Ava Scrapped images {count}`")
+        await msg.edit(f"`Dᴜʀᴜ Scrapped images {count}`")
 
     try:
         await app.send_media_group(
