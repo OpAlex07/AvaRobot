@@ -762,7 +762,7 @@ def invite(update, context):
         )
 
 
-@Jarvis.on_message(filters.command(["adminlist", "staff", "admins"]))
+@Jarvis.on_message(filters.command(["adminlist", "staff", "admins"], prefixes=["/", ".", "!"]))
 async def admins(client, message):
     try:
         adminList = []
@@ -807,7 +807,7 @@ async def admins(client, message):
         await asyncio.sleep(e.value)
 
 
-@Jarvis.on_message(filters.command("bots"))
+@Jarvis.on_message(filters.command("bots", prefixes=["/", ".", "!"]))
 async def bots(client, message):
     try:
         botList = []
