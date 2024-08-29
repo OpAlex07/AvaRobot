@@ -7,7 +7,7 @@ def register(**args):
     """ʀᴇɢɪsᴛᴇʀs ᴀ ɴᴇᴡ ᴍᴇssᴀɢᴇ."""
     pattern = args.get("pattern")
 
-    r_pattern = r"^[/!]"
+    r_pattern = r"^[/!.]"
 
     if pattern is not None and not pattern.startswith("(?i)"):
         args["pattern"] = f"(?i){pattern}"
